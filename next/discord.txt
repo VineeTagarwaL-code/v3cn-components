@@ -365,6 +365,10 @@ const Progress = React.forwardRef<
   </ProgressPrimitive.Root>
 ));
 
+Progress.displayName = "Progress";
+
+export default Progress;
+
 /**
  *
  * @description Clean skeleton component for discordPresence
