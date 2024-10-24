@@ -12,7 +12,7 @@ const MouseEnterContext = createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
 >(undefined);
 
-const CardContainer = ({
+export const CardContainer = ({
   children,
   className,
   containerClassName,

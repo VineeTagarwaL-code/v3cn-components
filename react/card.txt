@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { cn } from "@/utils/cn";
 import React, {
@@ -12,7 +13,7 @@ const MouseEnterContext = createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
 >(undefined);
 
-const CardContainer = ({
+export const CardContainer = ({
   children,
   className,
   containerClassName,
