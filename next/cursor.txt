@@ -1,6 +1,5 @@
-":hello v"
 "use client";
-import { cn } from "../utils/cn";
+import { cn } from "@/utils/cn";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
