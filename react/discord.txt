@@ -1,6 +1,7 @@
+"use client";
 
 import React, { use, useCallback, useEffect, useState } from "react";
-import { cn } from "@/utils/cn";
+import { cn } from "../utils/cn";
 import * as ProgressPrimitive from "@radix-ui/react-progress";
 
 type TDiscord = {
@@ -294,7 +295,7 @@ const ImageCont: React.FC<TImageCont> = ({
       {activityImage.largeActivityImage == "" ? (
         <div className="animate-pulse bg-gray-500 w-[100px] h-[100px] rounded-2xl"></div>
       ) : (
-        <img
+        <Image
           src={activityImage.largeActivityImage}
           className={cn(
             "rounded-2xl relative select-none",
@@ -308,7 +309,7 @@ const ImageCont: React.FC<TImageCont> = ({
       )}
 
       {!activityImage.isSpotifyPlaying && activityImage.isActivity && (
-        <img
+        <Image
           src={activityImage.smallActivityImage}
           height={40}
           width={40}
