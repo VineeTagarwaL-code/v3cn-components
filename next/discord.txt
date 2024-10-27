@@ -324,7 +324,9 @@ type TLocalTime = {
   localTimeClass?: string;
 };
 const LocalTime: React.FC<TLocalTime> = ({ localTimeClass }: TLocalTime) => {
-  const [localTime, setLocalTime] = useState<string>("");
+  const [localTime, setLocalTime] = useState<string>(
+    new Date().toLocaleTimeString()
+  );
 
   const setLocalTimeState = () => {
     setLocalTime(new Date().toLocaleTimeString());
