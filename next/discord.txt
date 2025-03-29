@@ -1,9 +1,12 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
-import { cn } from "@/utils/cn";
 import * as ProgressPrimitive from "@radix-ui/react-progress";
+
+import React, { useEffect, useState } from "react";
+
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+
 type TDiscord = {
   userId: string;
   userName: string;
@@ -13,12 +16,14 @@ type TDiscord = {
   progressBarClassName?: string;
   localTimeClass?: string;
 };
+
 type TActivityImage = {
   largeActivityImage: string;
   smallActivityImage: string;
   isActivity: boolean;
   isSpotifyPlaying: boolean;
 };
+
 /**
  * visual studio code activity
  */
@@ -35,6 +40,7 @@ type TActivity = {
   name: string;
   state: string;
 };
+
 type TDiscordUser = {
   details: string;
   discord_status: string;
@@ -42,6 +48,7 @@ type TDiscordUser = {
   avatar: string;
   id: string;
 };
+
 type TSpotifyData = {
   album: string;
   album_art_url: string;
@@ -58,7 +65,8 @@ type TActivityDetail = {
   detail: string;
   description: string;
 };
-const Discord: React.FC<TDiscord> = ({
+
+export const DiscordComponent: React.FC<TDiscord> = ({
   userId,
   userName,
   activityDescriptionClass,
@@ -81,12 +89,12 @@ const Discord: React.FC<TDiscord> = ({
 
   const [progress, setProgress] = useState<number>(0);
   function musicProgress(spotify: Pick<TSpotifyData, "timestamps">) {
-    let totalTime = spotify.timestamps.end - spotify.timestamps.start;
-    let progress =
+    const totalTime = spotify.timestamps.end - spotify.timestamps.start;
+    const progress =
       100 - (100 * (spotify.timestamps.end - new Date().getTime())) / totalTime;
     setProgress(progress);
   }
-  const data = useDiscord({
+   useDiscord({
     userId,
     setIsLoading,
     setActivityImage,
@@ -127,6 +135,7 @@ const Discord: React.FC<TDiscord> = ({
     </div>
   );
 };
+
 const AcitvityInfo = ({
   activityDetais,
   activityDetailClass,
@@ -203,7 +212,7 @@ const useDiscord = ({
           }
         } else if (opCode === 0) {
           if (data.listening_to_spotify) {
-            let spotifyData = data.spotify;
+            const spotifyData = data.spotify;
             setActivityImage({
               largeActivityImage: spotifyData.album_art_url,
               smallActivityImage: spotifyData.album_art_url,
@@ -217,8 +226,8 @@ const useDiscord = ({
             });
             setIsLoading(false);
           } else if (data.activities && data.activities[0]) {
-            let activity = data.activities[0];
-            let largeImage = activity.assets?.large_image.includes("http")
+            const activity = data.activities[0];
+            const largeImage = activity.assets?.large_image.includes("http")
               ? "https://" +
                 activity.assets.large_image.replace(
                   /^mp:external\/[^\/]+\/https\//,
@@ -244,8 +253,8 @@ const useDiscord = ({
             });
             setIsLoading(false);
           } else {
-            let user = data;
-            let largeImage = `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user?.avatar}.png?size=512`;
+            const user = data;
+            const largeImage = `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user?.avatar}.png?size=512`;
 
             setActivityImage({
               largeActivityImage: largeImage,
@@ -271,10 +280,12 @@ const useDiscord = ({
     connect();
   });
 };
+
 type TImageCont = {
   activityImageClassName?: string;
   activityImage: TActivityImage;
 };
+
 const ImageCont: React.FC<TImageCont> = ({
   activityImageClassName,
   activityImage,
@@ -323,6 +334,7 @@ const ImageCont: React.FC<TImageCont> = ({
 type TLocalTime = {
   localTimeClass?: string;
 };
+
 const LocalTime: React.FC<TLocalTime> = ({ localTimeClass }: TLocalTime) => {
   const [localTime, setLocalTime] = useState<string>(
     new Date().toLocaleTimeString()
@@ -347,6 +359,7 @@ type progressProps = {
   progressBarClassName?: string;
   value?: number;
 };
+
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & progressProps
@@ -392,5 +405,3 @@ const DiscordSkeleton: React.FC = () => {
     </div>
   );
 };
-
-export { Discord };
