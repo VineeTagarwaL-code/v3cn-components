@@ -47,7 +47,9 @@ export const GithubGraph = ({
     <ActivityCalendar
       data={contribution}
       blockMargin={blockMargin}
-      color={colorPalette}
+      theme={{
+        dark: colorPalette,
+      }}
       labels={{
         totalCount: `{{count}} contributions in the last year`,
       }}
@@ -66,8 +68,8 @@ async function fetchContributionData(username: string): Promise<Activity[]> {
     const responseBody = await response.json()
     return responseBody.data
   } catch (err) {
-    throw new Error(err instanceof Error ? err.message : "Failed to fetch contribution data")
-    return[]; 
+    console.log(err)
+    return [];
   }
 }
 
